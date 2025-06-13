@@ -25,6 +25,7 @@ class CircleWnd : public CWnd
 public:
 	CircleWnd();
 	virtual ~CircleWnd();
+	CImage m_Image;		// 원그리기 이미지
 
 protected:
 	UINT m_nCircleMode;			// 모드 (CIRCLE_CLICK, CIRCLE_RANDOM)
@@ -49,8 +50,8 @@ public:
 
 	void DrawText(CWnd* pWnd, CString strText);
 
-	void SetPointRadius(REAL rRadi);
-	REAL GetPointRadius();
+	void SetPointRadius(float rRadi);
+	float GetPointRadius();
 
 	// 클릭 지점 위치 표시 컨트롤 설정
 	void SetWndDisplayPoints(CWnd* pDisplayPoint1, CWnd* pDisplayPoint2, CWnd* pDisplayPoint3);

@@ -12,25 +12,27 @@ using namespace std;
 class GlimThreePoint
 {
 protected:
+	CImage m_image;				// 이미지 그리기 객체
 	vector<CPoint> m_vtPoint;	// 클릭된 세점
-	REAL	m_radius;	// 원 반지름
-	Color	m_color;	// 원 색상
+	float 	m_radius;	// 원 반지름
 public:
 	GlimThreePoint(); // 생성자
 
 	void InitPoint(); // 클릭된 세점 초기화
-	void SetRadius(REAL rRadius); // 반지름 설정
-	REAL GetRadius(); // 반지름 반환
+	void SetRadius(float rRadius); // 반지름 설정
+	float GetRadius(); // 반지름 반환
 	void SetPoint(int nPos, CPoint ptPoint); // 세점 설정
 	// 클릭 지점 원 여부
 	bool isInCircle(CPoint ptCur, int& nInPos);
 
+	void CreateImage(int nWidth, int nHeight);
+	void DestroyImage(); // 이미지 객체 삭제
 	// 화면출력
-	virtual void Display(Graphics& graphic);
+	virtual void Display(CDC* pDC);
 
 protected:
 	// 원그리기
-	virtual void DrawCircle(Graphics& graphic, CPoint ptCenter, REAL rRadius, int nType= DRAW_BRUSH);
+	virtual void DrawCircle(CPoint ptCenter, float rRadius, int nType= DRAW_BRUSH);
 };
 
 // 세점을 잇는 원을 그리는 클래스
@@ -39,6 +41,6 @@ class GlimCircle : public GlimThreePoint
 public:
 	GlimCircle();	// 생성자
 
-	virtual void Display(Graphics& graphic); // 화면출력
-	bool CalculateCircle(CPoint& ptCenter, REAL& fRadius); // 세점으로 원 계산
+	virtual void Display(CDC* pDC); // 화면출력
+	bool CalculateCircle(CPoint& ptCenter, float & fRadius); // 세점으로 원 계산
 };

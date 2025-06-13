@@ -71,10 +71,6 @@ BOOL CGlimCircleApp::InitInstance()
 	// 적절한 내용으로 수정해야 합니다.
 	SetRegistryKey(_T("로컬 애플리케이션 마법사에서 생성된 애플리케이션"));
 
-	// GDI+ 초기화
-	GdiplusStartupInput gdiplusStartupInput;
-	GdiplusStartup(&m_GdiplusToken, &gdiplusStartupInput, NULL);
-
 	CGlimCircleDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
@@ -113,7 +109,5 @@ BOOL CGlimCircleApp::InitInstance()
 int CGlimCircleApp::ExitInstance()
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-		// GDI+ 종료
-	GdiplusShutdown(m_GdiplusToken);
 	return CWinApp::ExitInstance();
 }

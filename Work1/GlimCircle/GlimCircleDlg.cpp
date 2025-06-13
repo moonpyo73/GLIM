@@ -134,6 +134,7 @@ BOOL CGlimCircleDlg::OnInitDialog()
 	m_pCircleWnd->SetWndDisplayPoints(GetDlgItem(IDC_STATIC_POINT1), GetDlgItem(IDC_STATIC_POINT2), GetDlgItem(IDC_STATIC_POINT3));
 	m_pCircleWnd->MoveWindow(&rect);
 	m_pCircleWnd->ShowWindow(SW_SHOW);
+	m_pCircleWnd->InitCircle();
 
 	CString strRadius;
 	strRadius.Format(_T("%.1f"), m_pCircleWnd->GetPointRadius());
@@ -217,7 +218,7 @@ void CGlimCircleDlg::OnBnClickedButtonApply()
 {
 	CString strRadius;
 	GetDlgItem(IDC_EDIT_RADIUS)->GetWindowText(strRadius);
-	double radius = _ttof(strRadius);
+	float radius = (float) _ttof(strRadius);
 	if (strRadius.IsEmpty() || radius <= 0.0F)
 	{
 		AfxMessageBox(_T("반지름을 입력하세요."));

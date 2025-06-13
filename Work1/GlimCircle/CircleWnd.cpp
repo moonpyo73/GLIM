@@ -40,12 +40,8 @@ void CircleWnd::OnPaint()
 	// 배경색으로 클라이언트 영역 채우기
 	CRect rect;
 	GetClientRect(&rect);
-	CBrush backgroundBrush(GetSysColor(COLOR_WINDOW));
-	dc.FillRect(&rect, &backgroundBrush);
-
-	Graphics graphics(dc.m_hDC); // CDC에서 Graphics 객체 생성
-	graphics.SetSmoothingMode(SmoothingModeAntiAlias); // 부드러운 곡선 처리
-	m_GlimCircle.Display(graphics); // GlimCircle 객체의 Display 메서드 호출
+	m_GlimCircle.CreateImage(rect.Width(), rect.Height()); // 이미지 생성
+	m_GlimCircle.Display(&dc);
 }
 
 void CircleWnd::DrawText(CWnd* pWnd, CString strText)
@@ -70,6 +66,9 @@ void CircleWnd::SetWndDisplayPoints(CWnd* pDisplayPoint1, CWnd* pDisplayPoint2, 
 // 클릭 원그리기 초기화
 void CircleWnd::InitCircle()
 {
+	CRect rect;
+	GetClientRect(&rect);
+	m_GlimCircle.CreateImage(rect.Width(), rect.Height()); // 이미지 생성
 	m_nCircleMode = 0; // 클릭 모드로 초기화
 	m_nClickCount = 0;
 	m_nMovePos = -1;
@@ -82,13 +81,13 @@ void CircleWnd::InitCircle()
 	Invalidate();
 }
 
-void CircleWnd::SetPointRadius(REAL rRadi)
+void CircleWnd::SetPointRadius(float rRadi)
 {
 	m_GlimCircle.SetRadius(rRadi);
 	Invalidate();
 }
 
-REAL CircleWnd::GetPointRadius()
+float CircleWnd::GetPointRadius()
 {
 	return m_GlimCircle.GetRadius();
 }
@@ -118,7 +117,7 @@ void CircleWnd::OnLButtonUp(UINT nFlags, CPoint point)
 		{
 			theApp.GetMainWnd()->PostMessage(WM_CIRCLE_RANDOM, RANDOM_ENABLE);
 			CPoint ptCenter;
-			REAL radius = 0.0f;
+			float radius = 0.0f;
 			if (m_nClickCount == 3 && m_GlimCircle.CalculateCircle(ptCenter, radius) == false)
 			{
 				AfxMessageBox(_T("원 그리기 실패! 3개 점이 직선입니다."), MB_ICONERROR | MB_OK);
@@ -198,7 +197,7 @@ void CircleWnd::RandomCircleProc()
 	while(nCount++ < m_nCircleCount && m_bThreadRun == true)
 	{
 		CPoint ptCenter;
-		REAL radius = 0.0f;
+		float radius = 0.0f;
 		CRect rect;
 		GetClientRect(&rect);
 		CPoint ptPoint1 = CPoint(rand() % rect.Width(), rand() % rect.Height());

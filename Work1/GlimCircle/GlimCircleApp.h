@@ -9,9 +9,6 @@
 #endif
 
 #include "resource.h"		// 주 기호입니다.
-#include <gdiplus.h> // GDI+ 헤더 포함
-
-using namespace Gdiplus;
 
 // CGlimCircleApp:
 // 이 클래스의 구현에 대해서는 GlimCircle.cpp을(를) 참조하세요.

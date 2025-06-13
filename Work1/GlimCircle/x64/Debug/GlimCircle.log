@@ -1,5 +1,43 @@
-﻿  GlimCircleDlg.cpp
-D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircleDlg.cpp(227,31): warning C4244: '인수': 'double'에서 'Gdiplus::REAL'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/GlimCircleDlg.cpp'을(를) 컴파일하는 중)
+﻿  pch.cpp
+  CircleWnd.cpp
+  GlimCircle.cpp
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(93,18): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
   
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(109,13): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(111,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(155,11): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(155,32): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(156,11): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(156,32): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(157,11): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(157,32): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(166,15): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(167,15): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+D:\DevelopCode\GitHub\GLIM\Work1\GlimCircle\GlimCircle.cpp(168,16): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GlimCircle.cpp'을(를) 컴파일하는 중)
+  
+  GlimCircleApp.cpp
+  GlimCircleDlg.cpp
+  코드를 생성하고 있습니다...
   GlimCircle.vcxproj -> D:\DevelopCode\GitHub\GLIM\Work1\x64\Debug\GlimCircle.exe

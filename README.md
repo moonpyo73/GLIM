@@ -17,9 +17,9 @@
   - 원의 표시 및 반지름 설정
   - 점이 원 내부에 있는지 판별
 - **주요 메서드:**
-  - `CalculateCircle(CPoint& ptCenter, REAL& fRadius)`: 세 점으로 원의 중심과 반지름 계산
-  - `Display(Graphics& graphic)`: 원을 화면에 표시
-  - `SetRadius(REAL rRadius)`, `GetRadius()`: 반지름 설정/조회
+  - `CalculateCircle(CPoint& ptCenter, float& fRadius)`: 세 점으로 원의 중심과 반지름 계산
+  - `Display(CDC* pDC)`: 원을 화면에 표시
+  - `SetRadius(float rRadius)`, `GetRadius()`: 반지름 설정/조회
   - `SetPoint(int nPos, CPoint ptPoint)`: 점 위치 설정
 
 ---

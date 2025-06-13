@@ -26,7 +26,6 @@ public:
 	bool isInCircle(CPoint ptCur, int& nInPos);
 
 	void CreateImage(int nWidth, int nHeight);
-	void DestroyImage(); // 이미지 객체 삭제
 	// 화면출력
 	virtual void Display(CDC* pDC);
 
@@ -42,5 +41,5 @@ public:
 	GlimCircle();	// 생성자
 
 	virtual void Display(CDC* pDC); // 화면출력
-	bool CalculateCircle(CPoint& ptCenter, float & fRadius); // 세점으로 원 계산
+	bool CalculateCircle(CPoint& ptCenter, float& fRadius); // 세점으로 원 계산
 };

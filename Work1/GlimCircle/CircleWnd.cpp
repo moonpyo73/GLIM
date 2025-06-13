@@ -78,7 +78,8 @@ void CircleWnd::InitCircle()
 	DrawText(m_pDisplayPoint[0], _T("-"));
 	DrawText(m_pDisplayPoint[1], _T("-"));
 	DrawText(m_pDisplayPoint[2], _T("-"));
-	RedrawWindow();
+	theApp.GetMainWnd()->PostMessage(WM_CIRCLE_RANDOM, RANDOM_DISABLE);
+	Invalidate();
 }
 
 void CircleWnd::SetPointRadius(REAL rRadi)
@@ -113,11 +114,15 @@ void CircleWnd::OnLButtonUp(UINT nFlags, CPoint point)
 		m_GlimCircle.SetPoint(m_nClickCount, point);
 		m_nClickCount++;
 		Invalidate();
-		CPoint ptCenter;
-		REAL radius = 0.0f;
-		if (m_nClickCount == 3 && m_GlimCircle.CalculateCircle(ptCenter, radius) == false)
+		if (m_nClickCount == 3)
 		{
-			AfxMessageBox(_T("원 그리기 실패! 3개 점이 직선입니다."), MB_ICONERROR | MB_OK);
+			theApp.GetMainWnd()->PostMessage(WM_CIRCLE_RANDOM, RANDOM_ENABLE);
+			CPoint ptCenter;
+			REAL radius = 0.0f;
+			if (m_nClickCount == 3 && m_GlimCircle.CalculateCircle(ptCenter, radius) == false)
+			{
+				AfxMessageBox(_T("원 그리기 실패! 3개 점이 직선입니다."), MB_ICONERROR | MB_OK);
+			}
 		}
 	}
 	else
@@ -172,7 +177,7 @@ bool CircleWnd::StartRandomCircle(int nCount)
 		AfxMessageBox(_T("스레드 시작 실패!"), MB_ICONERROR | MB_OK);
 		return false;
 	}
-	theApp.GetMainWnd()->PostMessageW(WM_CIRCLE_RANDOM, 1);
+	theApp.GetMainWnd()->PostMessage(WM_CIRCLE_RANDOM, RANDOM_START);
 	return true;
 }
 
@@ -214,7 +219,7 @@ void CircleWnd::RandomCircleProc()
 	}
 	m_bThreadRun = false; // 스레드 종료 플래그 설정
 	m_pThread = nullptr; // 스레드 포인터 초기화
-	theApp.GetMainWnd()->PostMessageW(WM_CIRCLE_RANDOM, 0);
+	theApp.GetMainWnd()->PostMessage(WM_CIRCLE_RANDOM, RANDOM_STOP);
 }
 
 UINT CircleWnd::ThreadCircle(LPVOID pParam)

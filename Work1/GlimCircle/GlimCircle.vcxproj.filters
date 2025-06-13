@@ -66,7 +66,6 @@
     <None Include="res\GlimCircle.rc2">
       <Filter>리소스 파일</Filter>
     </None>
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\GlimCircle.ico">

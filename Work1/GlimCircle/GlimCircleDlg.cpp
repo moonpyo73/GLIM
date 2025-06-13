@@ -116,6 +116,7 @@ BOOL CGlimCircleDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+	GetDlgItem(IDC_BUTTON_RAND)->EnableWindow(FALSE);
 
 	m_pCircleWnd = new CircleWnd();
 	if (!m_pCircleWnd->Create(NULL, NULL, WS_BORDER | WS_CHILD | WS_VISIBLE, CRect(0, 0, 100, 100), this, AFX_IDW_PANE_FIRST))
@@ -189,7 +190,6 @@ HCURSOR CGlimCircleDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-
 void CGlimCircleDlg::OnSize(UINT nType, int cx, int cy)
 {
 	CDialogEx::OnSize(nType, cx, cy);
@@ -257,16 +257,27 @@ void CGlimCircleDlg::OnBnClickedButtonRand()
 
 afx_msg LRESULT CGlimCircleDlg::OnCircleRandom(WPARAM wParam, LPARAM lParam)
 {
-	CButton* pButton = (CButton*)GetDlgItem(IDC_BUTTON_RAND);
-	if(wParam == 0) // 랜덤 이동 종료
+	CButton* pBtnInit = (CButton*)GetDlgItem(IDC_BUTTON_INIT);
+	CButton* pBtnRandom = (CButton*)GetDlgItem(IDC_BUTTON_RAND);
+	switch (wParam)
 	{
-		pButton->SetWindowText(_T("랜덤 이동"));
-		GetDlgItem(IDC_BUTTON_INIT)->EnableWindow(TRUE);
-	}
-	else // 랜덤 시작
-	{
-		pButton->SetWindowText(_T("랜덤 중지"));
-		GetDlgItem(IDC_BUTTON_INIT)->EnableWindow(FALSE);
+	default:
+	case RANDOM_DISABLE:
+		pBtnRandom->EnableWindow(FALSE);	// 랜덤 버튼 비활성화
+		pBtnRandom->SetWindowText(_T("랜덤 이동"));
+		break;
+	case RANDOM_ENABLE:
+		pBtnRandom->EnableWindow(TRUE);	// 랜덤 버튼 활성화
+		pBtnRandom->SetWindowText(_T("랜덤 이동"));
+		break;
+	case RANDOM_START:
+		pBtnInit->EnableWindow(FALSE);	// 초기화 버튼 비활성화
+		pBtnRandom->SetWindowText(_T("랜덤 중지"));
+		break;
+	case RANDOM_STOP:
+		pBtnInit->EnableWindow(TRUE);	// 초기화 버튼 활성화
+		pBtnRandom->SetWindowText(_T("랜덤 이동"));
+		break;
 	}
 	return 0;
 }

@@ -13,6 +13,10 @@ using namespace Gdiplus;
 #define CIRCLE_RANDOM	1	// 랜덤 모드
 
 #define WM_CIRCLE_RANDOM	(WM_USER + 100)	// 랜덤 원그리기 메시지
+#define RANDOM_DISABLE		0				// 랜덤 원그리기 활성화
+#define RANDOM_ENABLE		1				// 랜덤 원그리기 비활성화
+#define RANDOM_START		2				// 랜덤 원그리기 시작
+#define RANDOM_STOP			3				// 랜덤 원그리기 중지
 
 class CircleWnd : public CWnd
 {

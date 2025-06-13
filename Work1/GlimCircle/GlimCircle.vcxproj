@@ -208,7 +208,6 @@
     <ResourceCompile Include="GlimCircle.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="README.md" />
     <None Include="res\GlimCircle.rc2" />
   </ItemGroup>
   <ItemGroup>

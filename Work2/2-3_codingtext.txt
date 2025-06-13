@@ -1,0 +1,21 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<vector<int>> dots) {
+    int answer = 0;
+    vector<int> vX, vY;
+    for(const auto dot : dots)
+    {
+        vX.push_back(dot[0]);
+        vY.push_back(dot[1]);
+    }
+    sort(vX.begin(), vX.end());
+    sort(vY.begin(), vY.end());
+    int width = abs(vX.front() - vX.back());
+    int height = abs(vY.front() - vY.back());
+    answer = width * height;
+    return answer;
+}

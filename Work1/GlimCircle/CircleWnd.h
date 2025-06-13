@@ -9,6 +9,11 @@
 using namespace Gdiplus;
 // CircleWnd
 
+#define	CIRCLE_CLICK	0	// 클릭 모드
+#define CIRCLE_RANDOM	1	// 랜덤 모드
+
+#define WM_CIRCLE_RANDOM	(WM_USER + 100)	// 랜덤 원그리기 메시지
+
 class CircleWnd : public CWnd
 {
 	DECLARE_DYNAMIC(CircleWnd)
@@ -18,14 +23,15 @@ public:
 	virtual ~CircleWnd();
 
 protected:
+	UINT m_nCircleMode;			// 모드 (CIRCLE_CLICK, CIRCLE_RANDOM)
 	GlimCircle	m_GlimCircle;	// GlimCircle 객체
-	int	m_nClickCount;	// 클리 지점 횟수 (0~2 : 클릭, 3 : 이동)
-	int m_nMovePos;	// 선택된 클릭지점(-1 : 기본값(선택안됨), 0~2 : 클릭지점)
+	int	m_nClickCount;			// 클리 지점 횟수 (0~2 : 클릭, 3 : 이동)
+	int m_nMovePos;				// 선택된 클릭지점(-1 : 기본값(선택안됨), 0~2 : 클릭지점)
 	CWnd* m_pDisplayPoint[3];	// 클릭지점 출력 컨트롤
-	bool m_bDrag;			// 마우스 드래그 여부
-	CWinThread* m_pThread;	// 원그리기 스레드
-	bool m_bThreadRun;	// 스레드 실행 여부
-	int m_nCircleCount;	// 원그리기 개수
+	bool m_bDrag;				// 마우스 드래그 여부
+	CWinThread* m_pThread;		// 원그리기 스레드
+	bool m_bThreadRun;			// 스레드 실행 여부
+	int m_nCircleCount;			// 원그리기 개수
 
 	static UINT ThreadCircle(LPVOID pParam);	// 스레드 함수
 

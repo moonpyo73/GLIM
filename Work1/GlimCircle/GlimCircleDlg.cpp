@@ -80,6 +80,7 @@ BEGIN_MESSAGE_MAP(CGlimCircleDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_INIT, &CGlimCircleDlg::OnBnClickedButtonInit)
 	ON_BN_CLICKED(IDC_BUTTON_RAND, &CGlimCircleDlg::OnBnClickedButtonRand)
 	ON_WM_GETMINMAXINFO()
+	ON_MESSAGE(WM_CIRCLE_RANDOM, &CGlimCircleDlg::OnCircleRandom)
 END_MESSAGE_MAP()
 
 
@@ -237,5 +238,35 @@ void CGlimCircleDlg::OnBnClickedButtonInit()
 
 void CGlimCircleDlg::OnBnClickedButtonRand()
 {
-	m_pCircleWnd->StartRandomCircle();
+	CButton* pButton = (CButton*)GetDlgItem(IDC_BUTTON_RAND);
+	CString strText;
+	pButton->GetWindowText(strText);
+	if (strText == _T("랜덤 이동"))
+	{
+		if(m_pCircleWnd->StartRandomCircle() == false)
+		{
+			AfxMessageBox(_T("랜덤 이동을 시작할 수 없습니다."));
+			return;
+		}
+	}
+	else
+	{
+		m_pCircleWnd->StopRandomCircle();
+	}
+}
+
+afx_msg LRESULT CGlimCircleDlg::OnCircleRandom(WPARAM wParam, LPARAM lParam)
+{
+	CButton* pButton = (CButton*)GetDlgItem(IDC_BUTTON_RAND);
+	if(wParam == 0) // 랜덤 이동 종료
+	{
+		pButton->SetWindowText(_T("랜덤 이동"));
+		GetDlgItem(IDC_BUTTON_INIT)->EnableWindow(TRUE);
+	}
+	else // 랜덤 시작
+	{
+		pButton->SetWindowText(_T("랜덤 중지"));
+		GetDlgItem(IDC_BUTTON_INIT)->EnableWindow(FALSE);
+	}
+	return 0;
 }

@@ -9,14 +9,17 @@
 
 IMPLEMENT_DYNAMIC(CircleWnd, CWnd)
 
-CircleWnd::CircleWnd()
-	: m_bThreadRun(false)
-   , m_nCircleCount(0)
-   , m_pThread(nullptr)
-	, m_nClickCount(0)
-	, m_nMovePos(-1)
-   , m_pDisplayPoint{ nullptr, nullptr, nullptr }
-{
+CircleWnd::CircleWnd()  
+	: m_nCircleMode(0) // 초기화: 0 - 클릭, 1 - 랜덤  
+	, m_bDrag(false) // 초기화: 드래그 상태를 false로 설정  
+	, m_GlimCircle() // GlimCircle 객체 초기화  
+	, m_bThreadRun(false)  
+	, m_nCircleCount(0)  
+	, m_pThread(nullptr)  
+	, m_nClickCount(0)  
+	, m_nMovePos(-1)  
+	, m_pDisplayPoint{ nullptr, nullptr, nullptr }  
+{  
 }
 
 CircleWnd::~CircleWnd()
@@ -67,6 +70,7 @@ void CircleWnd::SetWndDisplayPoints(CWnd* pDisplayPoint1, CWnd* pDisplayPoint2, 
 // 클릭 원그리기 초기화
 void CircleWnd::InitCircle()
 {
+	m_nCircleMode = 0; // 클릭 모드로 초기화
 	m_nClickCount = 0;
 	m_nMovePos = -1;
 	m_bDrag = false;
@@ -90,7 +94,7 @@ REAL CircleWnd::GetPointRadius()
 
 void CircleWnd::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	if (m_nClickCount >= 3)
+	if (m_nCircleMode == CIRCLE_CLICK && m_nClickCount >= 3)
 	{
 		if (m_GlimCircle.isInCircle(point, m_nMovePos))
 		{
@@ -104,7 +108,7 @@ void CircleWnd::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CircleWnd::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	if (m_nClickCount < 3)
+	if (m_nCircleMode == CIRCLE_CLICK && m_nClickCount < 3)
 	{
 		m_GlimCircle.SetPoint(m_nClickCount, point);
 		m_nClickCount++;
@@ -129,25 +133,28 @@ void CircleWnd::OnLButtonUp(UINT nFlags, CPoint point)
 
 void CircleWnd::OnMouseMove(UINT nFlags, CPoint point)
 {
-	if (m_nClickCount < 3)
+	if(m_nCircleMode == CIRCLE_CLICK )// 클릭 모드일 때만 처리
 	{
-		if (m_pDisplayPoint[m_nClickCount] != nullptr) 
+		if (m_nClickCount < 3)
 		{
-			CString strText;
-			strText.Format(_T("%d, %d"), point.x, point.y);
-			DrawText(m_pDisplayPoint[m_nClickCount], strText);
+			if (m_pDisplayPoint[m_nClickCount] != nullptr)
+			{
+				CString strText;
+				strText.Format(_T("%d, %d"), point.x, point.y);
+				DrawText(m_pDisplayPoint[m_nClickCount], strText);
+			}
 		}
-	}
-	else
-	{
-		if (m_bDrag == true)
+		else
 		{
-			CString strText;
-			strText.Format(_T("%d, %d"), point.x, point.y);
-			DrawText(m_pDisplayPoint[m_nMovePos], strText);
+			if (m_bDrag == true)
+			{
+				CString strText;
+				strText.Format(_T("%d, %d"), point.x, point.y);
+				DrawText(m_pDisplayPoint[m_nMovePos], strText);
 
-			m_GlimCircle.SetPoint(m_nMovePos, point);
-			Invalidate();
+				m_GlimCircle.SetPoint(m_nMovePos, point);
+				Invalidate();
+			}
 		}
 	}
 	CWnd::OnMouseMove(nFlags, point);
@@ -155,6 +162,7 @@ void CircleWnd::OnMouseMove(UINT nFlags, CPoint point)
 
 bool CircleWnd::StartRandomCircle(int nCount)
 {
+	m_nCircleMode = CIRCLE_RANDOM; // 랜덤 모드로 설정
 	m_nCircleCount = nCount;
 	m_bThreadRun = true;
 	m_pThread = AfxBeginThread(ThreadCircle, this);
@@ -164,6 +172,7 @@ bool CircleWnd::StartRandomCircle(int nCount)
 		AfxMessageBox(_T("스레드 시작 실패!"), MB_ICONERROR | MB_OK);
 		return false;
 	}
+	theApp.GetMainWnd()->PostMessageW(WM_CIRCLE_RANDOM, 1);
 	return true;
 }
 
@@ -205,6 +214,7 @@ void CircleWnd::RandomCircleProc()
 	}
 	m_bThreadRun = false; // 스레드 종료 플래그 설정
 	m_pThread = nullptr; // 스레드 포인터 초기화
+	theApp.GetMainWnd()->PostMessageW(WM_CIRCLE_RANDOM, 0);
 }
 
 UINT CircleWnd::ThreadCircle(LPVOID pParam)

@@ -44,4 +44,6 @@ public:
 	afx_msg void OnBnClickedButtonApply();
 	afx_msg void OnBnClickedButtonInit();
 	afx_msg void OnBnClickedButtonRand();
+protected:
+	afx_msg LRESULT OnCircleRandom(WPARAM wParam, LPARAM lParam);
 };
